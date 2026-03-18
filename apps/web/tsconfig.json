@@ -1,7 +1,8 @@
 {
   "extends": "@repo/typescript-config/vite.json",
-  "include": ["src"],
+  "include": ["src", "vite.config.ts", ".eslintrc.cjs", "capacitor.config.ts"],
   "compilerOptions": {
+    "baseUrl": ".",
     "jsx": "react-jsx"
   }
 }
