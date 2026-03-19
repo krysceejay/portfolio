@@ -3,9 +3,8 @@
 @theme {
   --font-aspekta: var(--font-aspekta);
 
-  --color-lime-green: oklch(91.5% 0.19 115);
+  --color-pearl-white: #f1f0ea;
   --color-white-smoke: oklch(0.97 0.003 110);
-  --color-deep-plum: oklch(26% 0.06 322);
   --color-dark-slate: oklch(22.69% 0.034 256);
   --color-off-white: oklch(97.38% 0.0037 115.53);
 
@@ -16,5 +15,6 @@
   --color-surface-muted: #f7f8f5;
   --color-border: #d6d9d2;
   --color-text-muted: #6b7280;
+  /* --color-text-muted: #ECEAE8; */
   /* ... */
 }
