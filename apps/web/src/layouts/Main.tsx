@@ -28,9 +28,6 @@ const MainLayout = () => {
               >
                 {copy}
               </button>
-              <button className="bg-white py-1.5 px-4 rounded-full cursor-pointer text-sm">
-                CV
-              </button>
             </div>
             <div className="flex items-center">
               <Link
