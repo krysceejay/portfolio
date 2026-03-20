@@ -21,7 +21,7 @@ const MainLayout = () => {
         <div className="container">
           <nav className="flex flex-col space-y-2 sm:flex-row sm:space-y-0 items-center justify-between py-6">
             <div className="flex items-center space-x-4">
-              <span>chijiokechrys@gmail.com</span>
+              <span className="no-underline">chijiokechrys@gmail.com</span>
               <button
                 className="bg-white py-1.5 px-4 rounded-full cursor-pointer text-sm focus-visible:outline-transparent"
                 onClick={() => handleCopy("chijiokechrys@gmail.com")}
