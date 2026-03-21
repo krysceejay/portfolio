@@ -68,7 +68,7 @@ const MainLayout = () => {
         </div>
       </header> */}
       {/* Navbar */}
-      <header className="fixed top-0 left-0 w-full z-50 bg-pearl-white backdrop-blur border-b border-black/10">
+      <header className="fixed top-0 left-0 w-full z-50 bg-pearl-white backdrop-blur border-b border-dark-slate/10">
         <div className="container">
           <div className="mx-auto flex items-center justify-between py-5">
             {/* Logo */}

@@ -69,10 +69,13 @@ const originalCards: Card[] = [
 // duplicate for seamless looping
 const cards = [...originalCards, ...originalCards];
 
+const isMobile = window.innerWidth < 768;
+
 const Home = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const animationRef = useRef<number | null>(null);
   const [isPaused, setIsPaused] = useState(false);
+  const [isInteracting, setIsInteracting] = useState(false);
   const [selectedCard, setSelectedCard] = useState<Card | null>(null);
 
   // Continuous auto scroll
@@ -80,13 +83,12 @@ const Home = () => {
     const el = scrollRef.current;
     if (!el) return;
 
-    const speed = 0.5; // adjust speed
+    const speed = 0.5;
 
     const animate = () => {
-      if (!isPaused) {
+      if (!isPaused && !isInteracting) {
         el.scrollLeft += speed;
 
-        // reset scroll for infinite effect
         if (el.scrollLeft >= el.scrollWidth / 2) {
           el.scrollLeft = 0;
         }
@@ -100,7 +102,7 @@ const Home = () => {
     return () => {
       if (animationRef.current) cancelAnimationFrame(animationRef.current);
     };
-  }, [isPaused]);
+  }, [isPaused, isInteracting]);
 
   // 🧠 Pause when modal opens
   useEffect(() => {
@@ -118,6 +120,11 @@ const Home = () => {
     const el = scrollRef.current;
     if (!el) return;
 
+    setIsInteracting(true); // 👈 important
+
+    // ❗ STOP existing animation first
+    if (animationRef.current) cancelAnimationFrame(animationRef.current);
+
     const speed = direction === "left" ? -20 : 20;
 
     const scroll = () => {
@@ -129,7 +136,11 @@ const Home = () => {
   };
 
   const stopScroll = () => {
-    if (animationRef.current) cancelAnimationFrame(animationRef.current);
+    if (animationRef.current) {
+      cancelAnimationFrame(animationRef.current);
+    }
+
+    setIsInteracting(false); // 👈 allow auto-scroll again
   };
 
   return (
@@ -347,7 +358,7 @@ const Home = () => {
       {/* Project */}
       <section id="projects" className="bg-pearl-white">
         <div className="bg-off-white h-full">
-          <div className="m-auto overflow-hidden px-6 pt-24 pb-28">
+          <div className="m-auto overflow-hidden md:px-6 pt-24 pb-28">
             <h3 className="text-4xl text-center font-medium">Projects</h3>
             <p className="text-center mt-6 text-lg">
               Selected projects showcasing real-world impact and collaborations{" "}
@@ -358,12 +369,24 @@ const Home = () => {
               className="relative w-full mt-18 bg-transparent p-0"
               onMouseEnter={() => setIsPaused(true)}
               onMouseLeave={() => !selectedCard && setIsPaused(false)}
+              onTouchStart={() => setIsPaused(true)}
+              onTouchEnd={() => !selectedCard && setIsPaused(false)}
             >
               {/* Left Control */}
               <button
+                onClick={() => {
+                  if (isMobile) {
+                    scrollRef.current?.scrollBy({
+                      left: -300,
+                      behavior: "smooth",
+                    });
+                  }
+                }}
                 onMouseDown={() => startScroll("left")}
                 onMouseUp={stopScroll}
                 onMouseLeave={stopScroll}
+                onTouchStart={() => startScroll("left")}
+                onTouchEnd={stopScroll}
                 className="absolute left-0 top-1/2 z-10 -translate-y-1/2 bg-black/50 text-white py-3 px-4 rounded-full hover:bg-black font-bold cursor-pointer"
               >
                 ←
@@ -372,7 +395,7 @@ const Home = () => {
               {/* Carousel */}
               <div
                 ref={scrollRef}
-                className="carousel-fade flex gap-x-6 overflow-x-scroll px-10 py-6 scrollbar-hide rounded-2xl"
+                className="carousel-fade flex gap-x-6 overflow-x-scroll px-10 py-6 scrollbar-hide scroll-container rounded-2xl touch-pan-x"
               >
                 {cards.map((card, index) => (
                   <div
@@ -387,11 +410,11 @@ const Home = () => {
                     />
 
                     {/* Overlay */}
-                    <div className="absolute inset-0 bg-black/40 group-hover:bg-black/70 transition duration-300" />
+                    <div className="absolute inset-0 bg-black/40 md:group-hover:bg-black/70 transition duration-300" />
                     {/* Content */}
                     <div className="absolute bottom-12 p-4 text-white translate-y-10 group-hover:translate-y-0 transition duration-300">
                       <h3 className="text-xl font-semibold">{card.title}</h3>
-                      <div className="hidden group-hover:block transition duration-300">
+                      <div className="md:hidden group-hover:block group-active:block transition duration-300">
                         <p className="text-sm mt-2">{card.description}</p>
                         <button
                           className="bg-black hover:bg-white/80 hover:text-black text-white py-3 px-6 rounded-full cursor-pointer mt-4 text-sm"
@@ -406,9 +429,19 @@ const Home = () => {
               </div>
               {/* Right Control */}
               <button
+                onClick={() => {
+                  if (isMobile) {
+                    scrollRef.current?.scrollBy({
+                      left: 300,
+                      behavior: "smooth",
+                    });
+                  }
+                }}
                 onMouseDown={() => startScroll("right")}
                 onMouseUp={stopScroll}
                 onMouseLeave={stopScroll}
+                onTouchStart={() => startScroll("right")}
+                onTouchEnd={stopScroll}
                 className="absolute right-0 top-1/2 z-10 -translate-y-1/2 bg-black/50 text-white py-3 px-4 rounded-full hover:bg-black font-bold cursor-pointer"
               >
                 →
@@ -423,11 +456,11 @@ const Home = () => {
           {/* Overlay */}
           <div
             onClick={() => setSelectedCard(null)}
-            className="absolute inset-0 bg-black/60"
+            className="absolute inset-0 bg-black/70"
           />
 
           {/* Modal Content */}
-          <div className="relative bg-white max-w-2xl w-full rounded-2xl p-6 pb-8 z-10 shadow-xl">
+          <div className="relative bg-white max-w-2xl w-full rounded-2xl m-2 sm:m-6 pb-8 z-10 shadow-xl overflow-hidden overflow-y-scroll max-h-screen">
             <button
               onClick={() => setSelectedCard(null)}
               className="absolute top-3 right-3 cursor-pointer font-semibold text-lg/3 bg-dark-slate text-off-white rounded-full text-center p-1 w-8 h-8"
@@ -436,34 +469,35 @@ const Home = () => {
             </button>
             <img
               src={selectedCard.image}
-              className="w-full h-100 object-cover rounded-lg"
+              className="w-full h-100 object-cover"
             />
-
-            <h2 className="text-2xl font-semibold mt-3">Project Overview</h2>
-            <p className="text-gray-600 leading-relaxed mt-1">
-              {selectedCard.description}
-            </p>
-            <div className="mt-5">
-              <h3 className="text-xl font-medium">Technologies / Tools</h3>
-              <div className="mt-1 flex items-center space-x-2 flex-wrap text-off-white text-xs">
-                {selectedCard.tech?.map((tech) => (
-                  <span className="bg-dark-slate px-3 py-1.5 rounded-full">
-                    {tech}
-                  </span>
-                ))}
+            <div className="px-6">
+              <h2 className="text-2xl font-semibold mt-3">Project Overview</h2>
+              <p className="text-gray-600 leading-relaxed mt-1">
+                {selectedCard.description}
+              </p>
+              <div className="mt-5">
+                <h3 className="text-xl font-medium">Technologies / Tools</h3>
+                <div className="mt-1 flex items-center gap-2 flex-wrap text-off-white text-xs">
+                  {selectedCard.tech?.map((tech) => (
+                    <span className="bg-dark-slate px-3 py-1.5 rounded-full">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
-            <div className="mt-5">
-              <h3 className="text-xl font-medium">Client</h3>
-              <p className="text-gray-600 leading-relaxed mt-1">
-                {selectedCard.title}
-              </p>
-            </div>
-            <div className="mt-5">
-              <h3 className="text-xl font-medium">Category</h3>
-              <p className="text-gray-600 leading-relaxed mt-1">
-                {selectedCard.category}
-              </p>
+              <div className="mt-5">
+                <h3 className="text-xl font-medium">Client</h3>
+                <p className="text-gray-600 leading-relaxed mt-1">
+                  {selectedCard.title}
+                </p>
+              </div>
+              <div className="mt-5">
+                <h3 className="text-xl font-medium">Category</h3>
+                <p className="text-gray-600 leading-relaxed mt-1">
+                  {selectedCard.category}
+                </p>
+              </div>
             </div>
           </div>
         </div>
