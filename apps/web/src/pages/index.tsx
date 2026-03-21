@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 
-import Modal from "@repo/ui/Modal";
-
 type Card = {
   id: number;
   title: string;
   description: string;
   image: string;
+  details: string;
+  tech?: string[];
+  category?: string;
 };
 
 const originalCards: Card[] = [
@@ -17,18 +18,30 @@ const originalCards: Card[] = [
     description:
       "Affordable access to renewable energy for homes and businesses.",
     image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c",
+    details:
+      "Built highly scalable distributed systems using Elixir and Phoenix, supporting real-time communication and fault tolerance.",
+    tech: ["Reactjs", "NestJS", "Docker", "PostgreSQL"],
+    category: "Web Development",
   },
   {
     id: 2,
     title: "Vargent Africa",
     description: "Fast & affordable money transfers across Africa.",
     image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c",
+    details:
+      "Built highly scalable distributed systems using Elixir and Phoenix, supporting real-time communication and fault tolerance.",
+    tech: ["Reactjs", "NestJS", "Docker", "PostgreSQL"],
+    category: "Web Development",
   },
   {
     id: 3,
     title: "Candidately",
     description: "Candidate Presentation powered by AI",
     image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c",
+    details:
+      "Built highly scalable distributed systems using Elixir and Phoenix, supporting real-time communication and fault tolerance.",
+    tech: ["Reactjs", "Elixir", "Phoenix", "Docker", "PostgreSQL", "OpenAI"],
+    category: "Web Development",
   },
   {
     id: 4,
@@ -36,12 +49,20 @@ const originalCards: Card[] = [
     description:
       "A leading financial technology company specializing in the development of Central Bank Digital Currencies (CBDCs) and stablecoin solutions",
     image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c",
+    details:
+      "Built highly scalable distributed systems using Elixir and Phoenix, supporting real-time communication and fault tolerance.",
+    tech: ["Elixir", "Phoenix", "Docker", "PostgreSQL"],
+    category: "Web Development",
   },
   {
     id: 5,
     title: "Stanbic IBTC",
-    description: "Efficient schema & performance tuning.",
+    description: "Personal, business and commercial banking",
     image: "https://images.unsplash.com/photo-1544383835-bda2bc66a55d",
+    details:
+      "Built highly scalable distributed systems using Elixir and Phoenix, supporting real-time communication and fault tolerance.",
+    tech: ["ReactNative"],
+    category: "Mobile Development",
   },
 ];
 
@@ -52,7 +73,7 @@ const Home = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const animationRef = useRef<number | null>(null);
   const [isPaused, setIsPaused] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState<Card | null>(null);
 
   // Continuous auto scroll
   useEffect(() => {
@@ -81,6 +102,17 @@ const Home = () => {
     };
   }, [isPaused]);
 
+  // 🧠 Pause when modal opens
+  useEffect(() => {
+    if (selectedCard) {
+      setIsPaused(true);
+      document.body.style.overflow = "hidden"; // lock scroll
+    } else {
+      setIsPaused(false);
+      document.body.style.overflow = "";
+    }
+  }, [selectedCard]);
+
   // Hold-to-scroll buttons
   const startScroll = (direction: "left" | "right") => {
     const el = scrollRef.current;
@@ -98,10 +130,6 @@ const Home = () => {
 
   const stopScroll = () => {
     if (animationRef.current) cancelAnimationFrame(animationRef.current);
-  };
-
-  const toggleModal = () => {
-    setIsModalOpen(!isModalOpen);
   };
 
   return (
@@ -322,13 +350,14 @@ const Home = () => {
           <div className="m-auto overflow-hidden px-6 pt-24 pb-28">
             <h3 className="text-4xl text-center font-medium">Projects</h3>
             <p className="text-center mt-6 text-lg">
-              Collaborate with brands and agencies <br /> to create impactful
-              results.
+              Selected projects showcasing real-world impact and collaborations{" "}
+              <br />
+              with innovative brands across web, mobile, and scalable systems.
             </p>
             <div
               className="relative w-full mt-18 bg-transparent p-0"
               onMouseEnter={() => setIsPaused(true)}
-              onMouseLeave={() => setIsPaused(false)}
+              onMouseLeave={() => !selectedCard && setIsPaused(false)}
             >
               {/* Left Control */}
               <button
@@ -366,7 +395,7 @@ const Home = () => {
                         <p className="text-sm mt-2">{card.description}</p>
                         <button
                           className="bg-black hover:bg-white/80 hover:text-black text-white py-3 px-6 rounded-full cursor-pointer mt-4 text-sm"
-                          onClick={() => toggleModal()}
+                          onClick={() => setSelectedCard(card)}
                         >
                           View Details
                         </button>
@@ -388,10 +417,56 @@ const Home = () => {
           </div>
         </div>
       </section>
-      {isModalOpen && (
-        <Modal isOpen={isModalOpen} hide={() => toggleModal()}>
-          <div className="mt-2">hhhfhfhfhfh</div>
-        </Modal>
+      {/* 🪟 Modal */}
+      {selectedCard && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          {/* Overlay */}
+          <div
+            onClick={() => setSelectedCard(null)}
+            className="absolute inset-0 bg-black/60"
+          />
+
+          {/* Modal Content */}
+          <div className="relative bg-white max-w-2xl w-full rounded-2xl p-6 pb-8 z-10 shadow-xl">
+            <button
+              onClick={() => setSelectedCard(null)}
+              className="absolute top-3 right-3 cursor-pointer font-semibold text-lg/3 bg-dark-slate text-off-white rounded-full text-center p-1 w-8 h-8"
+            >
+              ✕
+            </button>
+            <img
+              src={selectedCard.image}
+              className="w-full h-100 object-cover rounded-lg"
+            />
+
+            <h2 className="text-2xl font-semibold mt-3">Project Overview</h2>
+            <p className="text-gray-600 leading-relaxed mt-1">
+              {selectedCard.description}
+            </p>
+            <div className="mt-5">
+              <h3 className="text-xl font-medium">Technologies / Tools</h3>
+              <div className="mt-1 flex items-center space-x-2 flex-wrap text-off-white text-xs">
+                {selectedCard.tech?.map((tech) => (
+                  <span className="bg-dark-slate px-3 py-1.5 rounded-full">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <div className="mt-5">
+              <h3 className="text-xl font-medium">Client</h3>
+              <p className="text-gray-600 leading-relaxed mt-1">
+                {selectedCard.title}
+              </p>
+            </div>
+            <div className="mt-5">
+              <h3 className="text-xl font-medium">Category</h3>
+              <p className="text-gray-600 leading-relaxed mt-1">
+                {selectedCard.category}
+              </p>
+            </div>
+          </div>
+        </div>
       )}
       {/* Contact me */}
       <section id="contact" className="bg-off-white">
