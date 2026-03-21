@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 
+import Modal from "@repo/ui/Modal";
+
 type Card = {
   id: number;
   title: string;
@@ -11,31 +13,33 @@ type Card = {
 const originalCards: Card[] = [
   {
     id: 1,
-    title: "Elixir Systems",
-    description: "Building scalable distributed systems with Phoenix.",
+    title: "Venergie",
+    description:
+      "Affordable access to renewable energy for homes and businesses.",
     image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c",
   },
   {
     id: 2,
-    title: "NestJS APIs",
-    description: "Robust backend microservices with Kafka.",
+    title: "Vargent Africa",
+    description: "Fast & affordable money transfers across Africa.",
     image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c",
   },
   {
     id: 3,
-    title: "React Apps",
-    description: "Modern UI with React, TS & Tailwind.",
+    title: "Candidately",
+    description: "Candidate Presentation powered by AI",
     image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c",
   },
   {
     id: 4,
-    title: "Mobile Apps",
-    description: "Cross-platform apps with React Native.",
+    title: "BITT",
+    description:
+      "A leading financial technology company specializing in the development of Central Bank Digital Currencies (CBDCs) and stablecoin solutions",
     image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c",
   },
   {
     id: 5,
-    title: "Database Design",
+    title: "Stanbic IBTC",
     description: "Efficient schema & performance tuning.",
     image: "https://images.unsplash.com/photo-1544383835-bda2bc66a55d",
   },
@@ -48,6 +52,7 @@ const Home = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const animationRef = useRef<number | null>(null);
   const [isPaused, setIsPaused] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // Continuous auto scroll
   useEffect(() => {
@@ -95,6 +100,10 @@ const Home = () => {
     if (animationRef.current) cancelAnimationFrame(animationRef.current);
   };
 
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+
   return (
     <main>
       <section className="bg-off-white h-200">
@@ -122,7 +131,7 @@ const Home = () => {
       <section id="brands" className="bg-pearl-white">
         <div className="bg-off-white h-full rounded-b-[90px] md:rounded-b-[150px]">
           <div className="container py-24">
-            <div className="grid gap-8 grid-cols-[repeat(auto-fill,minmax(220px,1fr))] w-full place-items-center">
+            <div className="grid gap-8 grid-cols-[repeat(auto-fill,minmax(200px,1fr))] w-full place-items-center">
               <Link
                 to="https://www.venergie.africa/"
                 className="w-55 h-15"
@@ -132,6 +141,17 @@ const Home = () => {
                   src="/assets/images/venergie-logo.svg"
                   alt="Venegie Logo"
                   className="h-full w-full object-contain"
+                />
+              </Link>
+              <Link
+                to="https://www.bitt.com/"
+                className="w-55 h-15"
+                target="_blank"
+              >
+                <img
+                  src="/assets/images/bitt-logo.png"
+                  className="h-full w-full object-contain"
+                  alt="Bitt Logo"
                 />
               </Link>
               <Link
@@ -146,6 +166,17 @@ const Home = () => {
                 />
               </Link>
               <Link
+                to="https://www.stanbicibtcbank.com/"
+                className="w-55 h-15"
+                target="_blank"
+              >
+                <img
+                  src="/assets/images/stanbic-logo.png"
+                  className="h-full w-full object-contain"
+                  alt="Stanbic IBTC Logo"
+                />
+              </Link>
+              <Link
                 to="https://www.candidately.com/"
                 className="w-55 h-15"
                 target="_blank"
@@ -154,13 +185,6 @@ const Home = () => {
                   src="/assets/images/candidately-logo.svg"
                   alt="Candidately Logo"
                   className="h-full w-full object-contain"
-                />
-              </Link>
-              <Link to="/" className="w-55 h-15" target="_blank">
-                <img
-                  src="/assets/images/bitt-logo.png"
-                  className="h-full w-full object-contain"
-                  alt="Bitt Logo"
                 />
               </Link>
             </div>
@@ -340,7 +364,10 @@ const Home = () => {
                       <h3 className="text-xl font-semibold">{card.title}</h3>
                       <div className="hidden group-hover:block transition duration-300">
                         <p className="text-sm mt-2">{card.description}</p>
-                        <button className="bg-black hover:bg-white/30 text-white py-3 px-6 rounded-full cursor-pointer mt-4 text-sm">
+                        <button
+                          className="bg-black hover:bg-white/80 hover:text-black text-white py-3 px-6 rounded-full cursor-pointer mt-4 text-sm"
+                          onClick={() => toggleModal()}
+                        >
                           View Details
                         </button>
                       </div>
@@ -348,7 +375,6 @@ const Home = () => {
                   </div>
                 ))}
               </div>
-
               {/* Right Control */}
               <button
                 onMouseDown={() => startScroll("right")}
@@ -362,6 +388,11 @@ const Home = () => {
           </div>
         </div>
       </section>
+      {isModalOpen && (
+        <Modal isOpen={isModalOpen} hide={() => toggleModal()}>
+          <div className="mt-2">hhhfhfhfhfh</div>
+        </Modal>
+      )}
       {/* Contact me */}
       <section id="contact" className="bg-off-white">
         <div className="bg-pearl-white h-full rounded-t-[90px] md:rounded-t-[150px]">
