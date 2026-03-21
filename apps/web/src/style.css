@@ -21,3 +21,29 @@ body {
 .container {
   @apply max-w-300 m-auto overflow-hidden px-6;
 }
+
+/* Hide scrollbar */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.carousel-fade {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent,
+    #111d2c 4%,
+    #111d2c 96%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #111d2c 4%,
+    #111d2c 96%,
+    transparent
+  );
+}

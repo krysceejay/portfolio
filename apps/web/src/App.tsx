@@ -1,6 +1,8 @@
 import { lazy, Suspense } from "react";
 import { Routes, Route } from "react-router";
 
+import Loader from "@repo/ui/Loader";
+
 //Layout
 import MainLayout from "@layouts/Main";
 
@@ -14,7 +16,7 @@ const App = () => {
         <Route
           path="/"
           element={
-            <Suspense fallback={<div>Loading...</div>}>
+            <Suspense fallback={<Loader />}>
               <Home />
             </Suspense>
           }
