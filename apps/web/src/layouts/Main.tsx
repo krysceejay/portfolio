@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Outlet } from "react-router";
+import { Link, Outlet } from "react-router";
 
 const navLinks = [
   { name: "Brands", id: "brands" },
@@ -91,6 +91,23 @@ const MainLayout = () => {
                 </button>
               ))}
             </nav>
+            <div className="flex items-center">
+              <Link
+                to="https://www.linkedin.com/in/christopher-chijioke-b1b457131/"
+                target="_blank"
+                className="cursor-pointer"
+              >
+                LinkedIn
+              </Link>
+              &ensp;/&ensp;
+              <Link
+                to="https://github.com/krysceejay"
+                target="_blank"
+                className="cursor-pointer"
+              >
+                GitHub
+              </Link>
+            </div>
             {/* Mobile Menu Button */}
             <button onClick={() => setOpen(true)} className="md:hidden">
               <svg
@@ -99,7 +116,7 @@ const MainLayout = () => {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="size-7 font-semibold"
+                className="size-8 font-extrabold"
               >
                 <path
                   strokeLinecap="round"

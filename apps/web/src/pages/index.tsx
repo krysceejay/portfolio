@@ -234,8 +234,8 @@ const Home = () => {
       <section id="services" className="bg-off-white">
         <div className="bg-pearl-white h-full rounded-b-[90px] md:rounded-b-[150px]">
           <div className="container pt-24 pb-28">
-            <h3 className="text-4xl text-center font-medium">Services</h3>
-            <p className="text-center mt-6 text-lg">
+            <h3 className="text-5xl text-center font-medium">Services</h3>
+            <p className="text-center mt-6 text-xl">
               I design and build scalable, high-performance <br /> digital
               solutions tailored to your business needs.
             </p>
@@ -359,8 +359,8 @@ const Home = () => {
       <section id="projects" className="bg-pearl-white">
         <div className="bg-off-white h-full">
           <div className="m-auto overflow-hidden md:px-6 pt-24 pb-28">
-            <h3 className="text-4xl text-center font-medium">Projects</h3>
-            <p className="text-center mt-6 text-lg">
+            <h3 className="text-5xl text-center font-medium px-6">Projects</h3>
+            <p className="text-center mt-6 text-xl px-6">
               Selected projects showcasing real-world impact and collaborations{" "}
               <br />
               with innovative brands across web, mobile, and scalable systems.
@@ -460,7 +460,7 @@ const Home = () => {
           />
 
           {/* Modal Content */}
-          <div className="relative bg-white max-w-2xl w-full rounded-2xl m-2 sm:m-6 pb-8 z-10 shadow-xl overflow-hidden overflow-y-scroll max-h-screen">
+          <div className="relative bg-white max-w-2xl w-full rounded-2xl mx-2.5 my-6 sm:m-6 pb-8 z-10 shadow-xl overflow-hidden overflow-y-scroll max-h-screen">
             <button
               onClick={() => setSelectedCard(null)}
               className="absolute top-3 right-3 cursor-pointer font-semibold text-lg/3 bg-dark-slate text-off-white rounded-full text-center p-1 w-8 h-8"
@@ -469,7 +469,7 @@ const Home = () => {
             </button>
             <img
               src={selectedCard.image}
-              className="w-full h-100 object-cover"
+              className="w-full h-90 object-cover overflow-hidden"
             />
             <div className="px-6">
               <h2 className="text-2xl font-semibold mt-3">Project Overview</h2>
@@ -497,6 +497,14 @@ const Home = () => {
                 <p className="text-gray-600 leading-relaxed mt-1">
                   {selectedCard.category}
                 </p>
+              </div>
+              <div className="mt-8 flex justify-end">
+                <button
+                  onClick={() => setSelectedCard(null)}
+                  className="bg-black text-white py-2 px-5 rounded-lg cursor-pointer text-sm"
+                >
+                  Close
+                </button>
               </div>
             </div>
           </div>
