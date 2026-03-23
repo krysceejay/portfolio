@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link, Outlet } from "react-router";
 
+import ThemeToggle from "@repo/ui/ThemeToggle";
+
 const navLinks = [
   { name: "Brands", id: "brands" },
   { name: "Services", id: "services" },
@@ -68,7 +70,7 @@ const MainLayout = () => {
         </div>
       </header> */}
       {/* Navbar */}
-      <header className="fixed top-0 left-0 w-full z-50 bg-pearl-white backdrop-blur border-b border-dark-slate/10">
+      <header className="fixed top-0 left-0 w-full z-50 bg-(--bg) text-(--text) backdrop-blur border-b border-(--bg-border)/10">
         <div className="container">
           <div className="mx-auto flex items-center justify-between py-5">
             {/* Logo */}
@@ -108,23 +110,26 @@ const MainLayout = () => {
                 GitHub
               </Link>
             </div>
-            {/* Mobile Menu Button */}
-            <button onClick={() => setOpen(true)} className="md:hidden">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="size-8 font-extrabold"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                />
-              </svg>
-            </button>
+            <div className="flex items-center space-x-6">
+              <ThemeToggle />
+              {/* Mobile Menu Button */}
+              <button onClick={() => setOpen(true)} className="md:hidden">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="size-8 font-extrabold"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                  />
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
       </header>

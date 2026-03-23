@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 
+import Clipart from "@repo/ui/Clipart";
+
 type Card = {
   id: number;
   title: string;
@@ -145,8 +147,9 @@ const Home = () => {
 
   return (
     <main>
-      <section className="bg-off-white h-200">
-        <div className="bg-pearl-white h-full rounded-b-[90px] md:rounded-b-[150px]">
+      <section className="bg-(--bg-sec) h-200 ">
+        <div className="bg-(--bg) h-full rounded-b-[90px] md:rounded-b-[150px] relative isolate">
+          <Clipart />
           <div className="container h-full py-24">
             <div className="flex flex-col justify-center items-center h-full mt-8">
               <div className="w-45 h-45 rounded-full overflow-hidden bg-off-white p-1">
@@ -156,24 +159,24 @@ const Home = () => {
                   className="h-full w-full object-cover object-top-right rounded-full"
                 />
               </div>
-              <h3 className="font-medium text-5xl text-center text-pretty mt-10">
+              <h3 className="font-medium text-5xl text-center text-pretty mt-10 text-(--text)">
                 Building digital <br /> products, brands and <br /> experience.
               </h3>
-              <button className="bg-black text-white py-3 px-8 rounded-full cursor-pointer mt-15 text-sm">
+              {/* <button className="bg-black text-white py-3 px-8 rounded-full cursor-pointer mt-15 text-sm">
                 More shots
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
       </section>
       {/* Brands */}
-      <section id="brands" className="bg-pearl-white">
-        <div className="bg-off-white h-full rounded-b-[90px] md:rounded-b-[150px]">
+      <section id="brands" className="bg-(--bg)">
+        <div className="bg-(--bg-sec) h-full rounded-b-[90px] md:rounded-b-[150px]">
           <div className="container py-24">
             <div className="grid gap-8 grid-cols-[repeat(auto-fill,minmax(200px,1fr))] w-full place-items-center">
               <Link
                 to="https://www.venergie.africa/"
-                className="w-55 h-15"
+                className="w-55 h-15 bg-off-white p-2 rounded-lg"
                 target="_blank"
               >
                 <img
@@ -184,7 +187,7 @@ const Home = () => {
               </Link>
               <Link
                 to="https://www.bitt.com/"
-                className="w-55 h-15"
+                className="w-55 h-15 bg-off-white p-2 rounded-lg"
                 target="_blank"
               >
                 <img
@@ -195,7 +198,7 @@ const Home = () => {
               </Link>
               <Link
                 to="https://www.vargent.africa/"
-                className="w-55 h-15"
+                className="w-55 h-15 bg-off-white p-2 rounded-lg"
                 target="_blank"
               >
                 <img
@@ -206,7 +209,7 @@ const Home = () => {
               </Link>
               <Link
                 to="https://www.stanbicibtcbank.com/"
-                className="w-55 h-15"
+                className="w-55 h-15 bg-off-white p-2 rounded-lg"
                 target="_blank"
               >
                 <img
@@ -217,7 +220,7 @@ const Home = () => {
               </Link>
               <Link
                 to="https://www.candidately.com/"
-                className="w-55 h-15"
+                className="w-55 h-15 bg-off-white p-2 rounded-lg"
                 target="_blank"
               >
                 <img
@@ -231,8 +234,9 @@ const Home = () => {
         </div>
       </section>
       {/* Services */}
-      <section id="services" className="bg-off-white">
-        <div className="bg-pearl-white h-full rounded-b-[90px] md:rounded-b-[150px]">
+      <section id="services" className="bg-(--bg-sec) text-(--text)">
+        <div className="bg-(--bg) h-full rounded-b-[90px] md:rounded-b-[150px] relative isolate">
+          <Clipart />
           <div className="container pt-24 pb-28">
             <h3 className="text-5xl text-center font-medium">Services</h3>
             <p className="text-center mt-6 text-xl">
@@ -242,7 +246,7 @@ const Home = () => {
             {/* Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-18">
               {/* Web Development (Large) */}
-              <div className="md:col-span-2 bg-white rounded-3xl md:rounded-e-lg p-6 flex flex-col justify-between min-h-65 group hover:scale-[1.02] transition">
+              <div className="md:col-span-2 bg-(--bg-card) rounded-3xl md:rounded-e-lg p-6 flex flex-col justify-between min-h-65 group hover:scale-[1.02] transition">
                 <div>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -272,7 +276,7 @@ const Home = () => {
                 </span>
               </div>
               {/* Mobile App */}
-              <div className="bg-white rounded-3xl md:rounded-s-lg p-6 shadow-sm flex flex-col min-h-65 hover:shadow-md transition">
+              <div className="bg-(--bg-card) rounded-3xl md:rounded-s-lg p-6 shadow-sm flex flex-col min-h-65 hover:shadow-md transition">
                 <div>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -288,8 +292,10 @@ const Home = () => {
                       d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3"
                     />
                   </svg>
-                  <h3 className="text-xl font-semibold mb-2">Mobile App</h3>
-                  <p className="text-gray-600 leading-relaxed line-clamp-4">
+                  <h3 className="text-xl font-semibold mb-2 text-(--text)">
+                    Mobile App
+                  </h3>
+                  <p className="leading-relaxed line-clamp-4 text-(--text)">
                     I develop cross-platform mobile applications using React
                     Native, delivering smooth user experiences, fast
                     performance, and maintainable scalable codebases.
@@ -297,7 +303,7 @@ const Home = () => {
                 </div>
               </div>
               {/* Web Hosting */}
-              <div className="bg-white rounded-3xl md:rounded-e-lg p-6 flex flex-col min-h-65 hover:scale-[1.02] transition">
+              <div className="bg-(--bg-card) rounded-3xl md:rounded-e-lg p-6 flex flex-col min-h-65 hover:scale-[1.02] transition">
                 <div>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -322,7 +328,7 @@ const Home = () => {
                 </div>
               </div>
               {/* Database Management (Large) */}
-              <div className="md:col-span-2 bg-white rounded-3xl md:rounded-s-lg p-6 shadow-sm flex flex-col justify-between min-h-65 hover:shadow-md transition">
+              <div className="md:col-span-2 bg-(--bg-card) rounded-3xl md:rounded-s-lg p-6 shadow-sm flex flex-col justify-between min-h-65 hover:shadow-md transition">
                 <div>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -341,7 +347,7 @@ const Home = () => {
                   <h3 className="text-2xl font-semibold mb-2">
                     Database Management
                   </h3>
-                  <p className="text-gray-600 leading-relaxed">
+                  <p className="leading-relaxed">
                     I design efficient database architectures, optimize queries,
                     and ensure data integrity using PostgreSQL, MySQL, and NoSQL
                     systems for high-performance applications.
@@ -356,8 +362,9 @@ const Home = () => {
         </div>
       </section>
       {/* Project */}
-      <section id="projects" className="bg-pearl-white">
-        <div className="bg-off-white h-full">
+      <section id="projects" className="bg-(--bg) text-(--text)">
+        <div className="bg-(--bg-sec) h-full border-none relative isolate">
+          <Clipart />
           <div className="m-auto overflow-hidden md:px-6 pt-24 pb-28">
             <h3 className="text-5xl text-center font-medium px-6">Projects</h3>
             <p className="text-center mt-6 text-xl px-6">
@@ -460,7 +467,7 @@ const Home = () => {
           />
 
           {/* Modal Content */}
-          <div className="relative bg-white max-w-2xl w-full rounded-2xl mx-2.5 my-6 sm:m-6 pb-8 z-10 shadow-xl overflow-hidden overflow-y-scroll max-h-screen">
+          <div className="relative bg-(--bg-sec) text-(--text-modal) max-w-2xl w-full rounded-2xl mx-2.5 my-6 sm:m-6 pb-8 z-10 shadow-xl overflow-hidden overflow-y-scroll max-h-[calc(100vh-10rem)]">
             <button
               onClick={() => setSelectedCard(null)}
               className="absolute top-3 right-3 cursor-pointer font-semibold text-lg/3 bg-dark-slate text-off-white rounded-full text-center p-1 w-8 h-8"
@@ -473,7 +480,7 @@ const Home = () => {
             />
             <div className="px-6">
               <h2 className="text-2xl font-semibold mt-3">Project Overview</h2>
-              <p className="text-gray-600 leading-relaxed mt-1">
+              <p className="text-(--text-detail) leading-relaxed mt-1">
                 {selectedCard.description}
               </p>
               <div className="mt-5">
@@ -488,13 +495,13 @@ const Home = () => {
               </div>
               <div className="mt-5">
                 <h3 className="text-xl font-medium">Client</h3>
-                <p className="text-gray-600 leading-relaxed mt-1">
+                <p className="text-(--text-detail) leading-relaxed mt-1">
                   {selectedCard.title}
                 </p>
               </div>
               <div className="mt-5">
                 <h3 className="text-xl font-medium">Category</h3>
-                <p className="text-gray-600 leading-relaxed mt-1">
+                <p className="text-(--text-detail) leading-relaxed mt-1">
                   {selectedCard.category}
                 </p>
               </div>
@@ -511,8 +518,8 @@ const Home = () => {
         </div>
       )}
       {/* Contact me */}
-      <section id="contact" className="bg-off-white">
-        <div className="bg-pearl-white h-full rounded-t-[90px] md:rounded-t-[150px]">
+      <section id="contact" className="bg-(--bg-sec) text-(--text)">
+        <div className="bg-(--bg) h-full rounded-t-[90px] md:rounded-t-[150px] relative isolate">
           <div className="container pt-24 pb-28">
             <div className="flex flex-col justify-center items-center h-full">
               <svg
