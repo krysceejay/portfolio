@@ -9,13 +9,35 @@
 @import "tailwindcss";
 @import "@repo/tailwind-config";
 
+@layer base {
+  * {
+    @apply transition-colors duration-300;
+  }
+}
+
 :root {
   --font-aspekta: "Aspekta Variable", sans-serif;
   box-sizing: border-box;
+  --bg: var(--color-pearl-white);
+  --bg-sec: var(--color-off-white);
+  --text: var(--color-dark-slate);
+  --bg-card: #ffffff;
+  --bg-border: var(--color-dark-slate);
+  --text-detail: #4a5565;
+}
+
+.dark {
+  --bg: var(--color-dark-slate);
+  --bg-sec: #101828;
+  --text: #ffffff;
+  --bg-card: var(--bg-sec);
+  --bg-border: var(--bg-sec);
+  --text-modal: #ffffff;
+  --text-detail: #d1d5dc;
 }
 
 body {
-  @apply bg-off-white font-aspekta text-dark-slate;
+  @apply font-aspekta;
 }
 
 .container {
