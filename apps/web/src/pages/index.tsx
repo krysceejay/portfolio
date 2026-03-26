@@ -365,7 +365,7 @@ const Home = () => {
       <section id="projects" className="bg-(--bg) text-(--text)">
         <div className="bg-(--bg-sec) h-full border-none relative isolate">
           <Clipart />
-          <div className="m-auto overflow-hidden md:px-6 pt-24 pb-28">
+          <div className="m-auto overflow-hidden md:px-6 pt-24 pb-28 appear-view">
             <h3 className="text-5xl text-center font-medium px-6">Projects</h3>
             <p className="text-center mt-6 text-xl px-6">
               Selected projects showcasing real-world impact and collaborations{" "}
