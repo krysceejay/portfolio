@@ -98,3 +98,154 @@ body {
   animation-timeline: view();
   animation-range: entry 0% cover 40%;
 }
+
+.carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel {
+  anchor-name: --carousel;
+  margin: 3em auto;
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  overflow-x: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  scroll-marker-group: after;
+}
+
+.carousel::scroll-marker-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 16px;
+}
+
+.carousel::scroll-button(right),
+.carousel::scroll-button(left) {
+  position: fixed;
+  position-anchor: --carousel;
+  border: none;
+  background-color: red;
+  color: white;
+  font-size: 0.8rem;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  z-index: 9999;
+  cursor: pointer;
+}
+
+.carousel::scroll-button(right):disabled,
+.carousel::scroll-button(left):disabled {
+  opacity: 0.5;
+  cursor: auto;
+}
+
+.carousel::scroll-button(left) {
+  content: "<-";
+  left: 0;
+  position-area: left center;
+  translate: 20%;
+}
+.carousel::scroll-button(right) {
+  content: "->";
+  right: 0;
+  position-area: right center;
+  translate: -20%;
+}
+
+.card {
+  flex: 0 0 20em;
+  aspect-ratio: 5/3;
+  background-color: blue;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  align-content: center;
+  scroll-snap-align: start;
+}
+
+.card::scroll-marker {
+  content: "";
+  height: 0.6rem;
+  width: 0.6rem;
+  background-color: yellow;
+  border-radius: 50%;
+}
+
+.card::scroll-marker:target-current {
+  background-color: green;
+}
+
+@media (max-width: 500px) {
+  .card {
+    flex: 0 0 100%;
+  }
+}
+
+/* index.css */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.wrapper {
+  border: 1px solid #000;
+  width: 100%;
+  position: relative;
+  margin-inline: auto;
+  height: 100px;
+  overflow: hidden;
+}
+
+.item {
+  width: 200px;
+  height: 100px;
+  background-color: red;
+  border-radius: 6px;
+  position: absolute;
+  left: max(calc(200px * 8), 100%);
+  animation-name: scrollLeft;
+  animation-duration: 20s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.item1 {
+  animation-delay: calc(20s / 8 * (8 - 1) * -1);
+}
+.item2 {
+  animation-delay: calc(20s / 8 * (8 - 2) * -1);
+}
+.item3 {
+  animation-delay: calc(20s / 8 * (8 - 3) * -1);
+}
+.item4 {
+  animation-delay: calc(20s / 8 * (8 - 4) * -1);
+}
+.item5 {
+  animation-delay: calc(20s / 8 * (8 - 5) * -1);
+}
+.item6 {
+  animation-delay: calc(20s / 8 * (8 - 6) * -1);
+}
+.item7 {
+  animation-delay: calc(20s / 8 * (8 - 7) * -1);
+}
+.item8 {
+  animation-delay: calc(20s / 8 * (8 - 8) * -1);
+}
+
+@keyframes scrollLeft {
+  to {
+    left: -200px;
+  }
+}

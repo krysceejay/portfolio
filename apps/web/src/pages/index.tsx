@@ -71,7 +71,7 @@ const originalCards: Card[] = [
 // duplicate for seamless looping
 const cards = [...originalCards, ...originalCards];
 
-const isMobile = window.innerWidth < 768;
+// const isMobile = window.innerWidth < 768;
 
 const Home = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -382,12 +382,10 @@ const Home = () => {
               {/* Left Control */}
               <button
                 onClick={() => {
-                  if (isMobile) {
-                    scrollRef.current?.scrollBy({
-                      left: -300,
-                      behavior: "smooth",
-                    });
-                  }
+                  scrollRef.current?.scrollBy({
+                    left: -500,
+                    behavior: "smooth",
+                  });
                 }}
                 onMouseDown={() => startScroll("left")}
                 onMouseUp={stopScroll}
@@ -437,12 +435,10 @@ const Home = () => {
               {/* Right Control */}
               <button
                 onClick={() => {
-                  if (isMobile) {
-                    scrollRef.current?.scrollBy({
-                      left: 300,
-                      behavior: "smooth",
-                    });
-                  }
+                  scrollRef.current?.scrollBy({
+                    left: 500,
+                    behavior: "smooth",
+                  });
                 }}
                 onMouseDown={() => startScroll("right")}
                 onMouseUp={stopScroll}
