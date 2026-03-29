@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, Outlet } from "react-router";
 
 import ThemeToggle from "@repo/ui/ThemeToggle";
@@ -11,21 +11,32 @@ const navLinks = [
 ];
 
 const MainLayout = () => {
-  // const [copy, setCopy] = useState("Copy");
-
-  // const handleCopy = async (text: string) => {
-  //   try {
-  //     await navigator.clipboard.writeText(text);
-  //     setCopy("Copied");
-  //     setTimeout(function () {
-  //       setCopy("Copy");
-  //     }, 4000);
-  //   } catch (error) {
-  //     null;
-  //   }
-  // };
-
   const [open, setOpen] = useState(false);
+  const [show, setShow] = useState(true);
+  const lastScrollY = useRef(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      // prevent tiny scroll jitter
+      if (Math.abs(currentScrollY - lastScrollY.current) < 5) return;
+
+      if (currentScrollY > lastScrollY.current) {
+        // 👇 scrolling down → hide
+        setShow(false);
+      } else {
+        // 👆 scrolling up → show
+        setShow(true);
+      }
+
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
@@ -37,40 +48,12 @@ const MainLayout = () => {
 
   return (
     <>
-      {/* <header className="bg-pearl-white p-0 sticky top-0 z-50 w-full">
-        <div className="container">
-          <nav className="flex flex-col space-y-2 sm:flex-row sm:space-y-0 items-center justify-between py-6">
-            <div className="flex items-center space-x-4">
-              <span className="no-underline">chijiokechrys@gmail.com</span>
-              <button
-                className="bg-white py-1.5 px-4 rounded-full cursor-pointer text-sm focus-visible:outline-transparent"
-                onClick={() => handleCopy("chijiokechrys@gmail.com")}
-              >
-                {copy}
-              </button>
-            </div>
-            <div className="flex items-center">
-              <Link
-                to="https://www.linkedin.com/in/christopher-chijioke-b1b457131/"
-                target="_blank"
-                className="cursor-pointer"
-              >
-                LinkedIn
-              </Link>
-              &ensp;/&ensp;
-              <Link
-                to="https://github.com/krysceejay"
-                target="_blank"
-                className="cursor-pointer"
-              >
-                GitHub
-              </Link>
-            </div>
-          </nav>
-        </div>
-      </header> */}
       {/* Navbar */}
-      <header className="fixed top-0 left-0 w-full z-50 bg-(--bg) text-(--text) backdrop-blur border-b border-(--bg-border)/10">
+      <header
+        className={`fixed top-0 left-0 w-full z-50 bg-(--bg) text-(--text) transition-transform duration-300 ${
+          show ? "translate-y-0" : "-translate-y-full"
+        }`}
+      >
         <div className="container">
           <div className="mx-auto flex items-center justify-between py-5">
             {/* Logo */}
