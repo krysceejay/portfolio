@@ -15,7 +15,7 @@ const Loader = () => {
           cy="12"
           r="10"
           stroke="currentColor"
-          strokeWidth="4"
+          strokeWidth="2"
         ></circle>
         <path
           className="ui:opacity-75"

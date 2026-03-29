@@ -71,7 +71,7 @@ const originalCards: Card[] = [
 // duplicate for seamless looping
 const cards = [...originalCards, ...originalCards];
 
-const isMobile = window.innerWidth < 768;
+// const isMobile = window.innerWidth < 768;
 
 const Home = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -365,7 +365,7 @@ const Home = () => {
       <section id="projects" className="bg-(--bg) text-(--text)">
         <div className="bg-(--bg-sec) h-full border-none relative isolate">
           <Clipart />
-          <div className="m-auto overflow-hidden md:px-6 pt-24 pb-28">
+          <div className="m-auto overflow-hidden md:px-6 pt-24 pb-28 appear-view">
             <h3 className="text-5xl text-center font-medium px-6">Projects</h3>
             <p className="text-center mt-6 text-xl px-6">
               Selected projects showcasing real-world impact and collaborations{" "}
@@ -382,12 +382,10 @@ const Home = () => {
               {/* Left Control */}
               <button
                 onClick={() => {
-                  if (isMobile) {
-                    scrollRef.current?.scrollBy({
-                      left: -300,
-                      behavior: "smooth",
-                    });
-                  }
+                  scrollRef.current?.scrollBy({
+                    left: -500,
+                    behavior: "smooth",
+                  });
                 }}
                 onMouseDown={() => startScroll("left")}
                 onMouseUp={stopScroll}
@@ -437,12 +435,10 @@ const Home = () => {
               {/* Right Control */}
               <button
                 onClick={() => {
-                  if (isMobile) {
-                    scrollRef.current?.scrollBy({
-                      left: 300,
-                      behavior: "smooth",
-                    });
-                  }
+                  scrollRef.current?.scrollBy({
+                    left: 500,
+                    behavior: "smooth",
+                  });
                 }}
                 onMouseDown={() => startScroll("right")}
                 onMouseUp={stopScroll}
