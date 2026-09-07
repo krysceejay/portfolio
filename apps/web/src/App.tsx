@@ -8,6 +8,7 @@ import MainLayout from "@layouts/Main";
 
 //Home
 const Home = lazy(() => import("@pages/index"));
+const Resume = lazy(() => import("@pages/Resume"));
 
 const App = () => {
   return (
@@ -22,6 +23,14 @@ const App = () => {
           }
         />
       </Route>
+      <Route
+        path="/resume"
+        element={
+          <Suspense fallback={<Loader />}>
+            <Resume />
+          </Suspense>
+        }
+      />
     </Routes>
   );
 };
